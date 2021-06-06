@@ -40,6 +40,11 @@ router.get("/api/artists",async(req,res) => {
 
     }
 });
+//API test
+router.get("/",async(req,res) => {
+    res.send('API is live!')
+
+});
 
 //GET AN ARTIST
 router.get("/api/artists/:id_no",async(req,res) => {
