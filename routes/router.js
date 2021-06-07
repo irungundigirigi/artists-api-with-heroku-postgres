@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const pg = require('pg');
-const {Pool} = require('pg');
+//const {Pool} = require('pg');
 //let Password = process.env.DB_PASSWORD;
 require('dotenv').config()
 
@@ -11,10 +11,7 @@ require('dotenv').config()
 
 const pool = new Pool({
   connectionString:process.env.DATABASE_URL
- 
 })
-
-
 pool.connect() 
 
 
