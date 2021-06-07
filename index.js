@@ -7,22 +7,11 @@ const apiroutes = require('./routes/router');
 
 
 let PORT = process.env.PORT
-let Password = process.env.DB_PASSWORD;
-
-
-
-
 
 //load middleware
 app.use(cors());
 app.use(express.json());
 app.use('/', apiroutes)
-
-
-
-
-
-
 
 //pool.connect()
 
