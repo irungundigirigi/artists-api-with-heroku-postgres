@@ -1,28 +1,28 @@
 const router = require('express').Router();
 const pg = require('pg');
 const {Pool} = require('pg');
-//let Password = process.env.DB_PASSWORD;
 require('dotenv').config()
 const isProduction = process.env.NODE_ENV === 'production'
 
+let Password = process.env.DB_PASSWORD;
 
-//const {Pool} = require('pg')
-//const isProduction = process.env.NODE_ENV === 'production'
 
-//const connectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`
+
 
 const pool = new Pool({
 
-  connectionString:process.env.DATABASE_URL,
-  ssl:isProduction,
-  
+    user: "postgres",
+    password:Password,
+    database:"artists_db",
+    host:"localhost",
+    port: 5432
 })
 pool.connect() 
 
 
 
 //CREATE AN ARTIST
-router.post("/artists",async(req,res)=> {
+router.post("/api/artists",async(req,res)=> {
     try{
         const {first_name, last_name, stage_name,sex,date_of_birth, email,genre,records_sold,active,id_no} = req.body;
         const newArtist = await pool.query(
@@ -47,11 +47,7 @@ router.get("/api/artists",async(req,res) => {
 
     }
 });
-//API test
-router.get("/",async(req,res) => {
-    res.send('API is live!')
 
-});
 
 //GET AN ARTIST
 router.get("/api/artists/:id_no",async(req,res) => {
@@ -82,7 +78,7 @@ router.put("/api/artists/:id_no",async(req,res) => {
 });
 
 //DELETE AN ARTIST
-router.delete('api/artists/:id_no', async (req, res) => {
+router.delete("/api/artists/:id_no", async (req, res) => {
     try{
         const{id_no} = req.params;
         const deleteArtist = await pool.query(
@@ -93,8 +89,8 @@ router.delete('api/artists/:id_no', async (req, res) => {
         res.json("Artist deleted successfully!");    
     }catch(err){
         console.log(err.message);
-    }    
-
+    } 
+    
 });
 
 module.exports = router;
